@@ -12,6 +12,10 @@ function showError($error)
 {
   return !empty($error) ? "<p class='error-message'>$error</p>" : "";
 }
+function isActiveForm($formName, $activeForm)
+{
+  return $formName === $activeForm ? 'active' : '';
+}
 ?>
 
 
@@ -27,9 +31,10 @@ function showError($error)
 
 <body>
   <div class="container">
-    <div class="form-box active" id="login-form">
+    <div class="form-box <?= isActiveForm('login', $activeForm); ?>" id="login-form">
       <form action="login_register.php" method="post">
         <h2>Connexion</h2>
+        <?= showError($errors['login']); ?>
         <input type="email" name="email" placeholder="Mettez votre email" />
         <input
           type="password"
@@ -42,9 +47,10 @@ function showError($error)
         <a href="#" onclick="showForm('register-form')">Enregistrer-vous</a>
       </p>
     </div>
-    <div class="form-box" id="register-form">
+    <div class="form-box <?= isActiveForm('register', $activeForm); ?>" id="register-form">
       <form action="login_register.php" method="post">
         <h2>Enregistrement</h2>
+        <?= showError($errors['register']); ?>
         <input type="text" required name="name" placeholder="Mettez votre nom" />
         <input type="email" required name="email" placeholder="Mettez votre email" />
         <input
